@@ -1,10 +1,19 @@
 import mongoose from "mongoose";
 import express from "express";
+import cors from 'cors'
 import routes from "./modules/routes.js";
 
 const app = express();
 
 const PORT = 8080;
+
+// parse json request body
+app.use(express.json())
+
+// enable cors
+app.use(cors())
+app.options('*', cors())
+
 
 app.use("/", routes);
 
