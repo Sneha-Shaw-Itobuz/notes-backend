@@ -2,12 +2,11 @@ import notesSchema from "../model/notesSchema.js";
 
 export const createNote = async (req, res) => {
   try {
-    const { title, content,isImportant } = req.body;
+    const { title, content } = req.body;
 
     let createNote = await notesSchema.create({
       title,
       content,
-      isImportant
     });
 
     if (createNote) {
@@ -25,11 +24,12 @@ export const createNote = async (req, res) => {
 export const getNotes = async (req, res) => {
   try {
     const notes = await notesSchema.find({});
+
     if (notes) {
       res.status(200).json({
         success: true,
         message: "Notes fetched successfully!",
-        data:notes,
+        data: notes,
       });
     }
   } catch (error) {
@@ -40,6 +40,7 @@ export const getNotes = async (req, res) => {
 export const getSingleNote = async (req, res) => {
   try {
     const { id } = req.params;
+
     const note = await notesSchema.findById(id);
 
     if (note) {
@@ -57,6 +58,7 @@ export const getSingleNote = async (req, res) => {
 export const updateNote = async (req, res) => {
   try {
     const { id, title, content } = req.body;
+
     const note = await notesSchema.findById(id);
 
     if (note) {
@@ -77,7 +79,9 @@ export const updateNote = async (req, res) => {
 export const deleteNote = async (req, res) => {
   try {
     const { id } = req.body;
+
     const deleted = await notesSchema.findByIdAndDelete(id);
+
     if (deleted) {
       res.status(200).json({
         success: true,

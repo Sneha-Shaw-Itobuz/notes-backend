@@ -9,7 +9,6 @@ const notesSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  isImportant: Boolean,
 });
 
 export default mongoose.model("notes", notesSchema);
