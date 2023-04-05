@@ -3,11 +3,12 @@ import notesSchema from "../model/notesSchema.js";
 export const createNote = async (req, res) => {
   try {
     console.log(req.body);
-    const { title, content } = req.body;
+    const { title, content,isImportant } = req.body;
     console.log(title);
     let createNote = await notesSchema.create({
       title,
       content,
+      isImportant
     });
 
     if (createNote) {
@@ -29,7 +30,7 @@ export const getNotes = async (req, res) => {
       res.status(200).json({
         success: true,
         message: "Notes fetched successfully!",
-        notes,
+        data:notes,
       });
     }
   } catch (error) {
@@ -40,8 +41,8 @@ export const getNotes = async (req, res) => {
 
 export const getSingleNote = async (req, res) => {
   try {
-    const { id } = req.params
-    const note = await notesSchema.findById(id)
+    const { id } = req.params;
+    const note = await notesSchema.findById(id);
 
     if (note) {
       res.status(200).json({
@@ -50,12 +51,11 @@ export const getSingleNote = async (req, res) => {
         note,
       });
     }
-
   } catch (error) {
     console.log(error);
     res.status(400).json({ message: error.message });
   }
-}
+};
 
 export const updateNote = async (req, res) => {
   try {
@@ -81,7 +81,7 @@ export const updateNote = async (req, res) => {
 export const deleteNote = async (req, res) => {
   try {
     const { id } = req.body;
-    const deleted = await notesSchema.findByIdAndDelete(id)
+    const deleted = await notesSchema.findByIdAndDelete(id);
     if (deleted) {
       res.status(200).json({
         success: true,
