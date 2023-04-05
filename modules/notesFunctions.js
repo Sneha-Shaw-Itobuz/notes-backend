@@ -13,11 +13,14 @@ export const createNote = async (req, res) => {
       res.status(200).json({
         success: true,
         message: "Notes created successfully!",
+        data: null,
       });
     }
   } catch (error) {
-    console.log(error);
-    res.status(400).json({ message: error.message });
+    res.status(400).json({
+      success: false,
+      message: error.message,
+    });
   }
 };
 
@@ -31,9 +34,18 @@ export const getNotes = async (req, res) => {
         message: "Notes fetched successfully!",
         data: notes,
       });
+    } else {
+      res.status(404).json({
+        success: false,
+        message: "Notes Not found!",
+        data: null,
+      });
     }
   } catch (error) {
-    res.status(400).json({ message: error.message });
+    res.status(400).json({
+      success: false,
+      message: error.message,
+    });
   }
 };
 
@@ -47,11 +59,20 @@ export const getSingleNote = async (req, res) => {
       res.status(200).json({
         success: true,
         message: "Note fetched successfully!",
-        note,
+        data: note,
+      });
+    } else {
+      res.status(404).json({
+        success: false,
+        message: "Note Not found!",
+        data: null,
       });
     }
   } catch (error) {
-    res.status(400).json({ message: error.message });
+    res.status(400).json({
+      success: false,
+      message: error.message,
+    });
   }
 };
 
@@ -70,9 +91,18 @@ export const updateNote = async (req, res) => {
         success: true,
         message: "Note Updated successfully!",
       });
+    } else {
+      res.status(404).json({
+        success: false,
+        message: "Note Not found!",
+        data: null,
+      });
     }
   } catch (error) {
-    res.status(400).json({ message: error.message });
+    res.status(400).json({
+      success: false,
+      message: error.message,
+    });
   }
 };
 
@@ -86,9 +116,19 @@ export const deleteNote = async (req, res) => {
       res.status(200).json({
         success: true,
         message: "Note Deleted successfully!",
+        data: null,
+      });
+    } else {
+      res.status(404).json({
+        success: false,
+        message: "Note Not found!",
+        data: null,
       });
     }
   } catch (error) {
-    res.status(400).json({ message: error.message });
+    res.status(400).json({
+      success: false,
+      message: error.message,
+    });
   }
 };
