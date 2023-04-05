@@ -5,7 +5,7 @@ import {
   updateNote,
   deleteNote,
   getSingleNote,
-} from "./function.js";
+} from "./notesFunctions.js";
 
 const route = express.Router();
 

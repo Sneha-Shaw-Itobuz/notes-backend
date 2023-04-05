@@ -2,9 +2,8 @@ import notesSchema from "../model/notesSchema.js";
 
 export const createNote = async (req, res) => {
   try {
-    console.log(req.body);
     const { title, content,isImportant } = req.body;
-    console.log(title);
+
     let createNote = await notesSchema.create({
       title,
       content,
@@ -34,7 +33,6 @@ export const getNotes = async (req, res) => {
       });
     }
   } catch (error) {
-    console.log(error);
     res.status(400).json({ message: error.message });
   }
 };
@@ -52,7 +50,6 @@ export const getSingleNote = async (req, res) => {
       });
     }
   } catch (error) {
-    console.log(error);
     res.status(400).json({ message: error.message });
   }
 };
@@ -73,7 +70,6 @@ export const updateNote = async (req, res) => {
       });
     }
   } catch (error) {
-    console.log(error);
     res.status(400).json({ message: error.message });
   }
 };
@@ -89,7 +85,6 @@ export const deleteNote = async (req, res) => {
       });
     }
   } catch (error) {
-    console.log(error);
     res.status(400).json({ message: error.message });
   }
 };
