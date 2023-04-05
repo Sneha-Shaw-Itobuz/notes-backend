@@ -17,6 +17,6 @@ route.post("/notes/create", createNote);
 route.get("/notes/get", getNotes);
 route.get("/notes/get-single-note/:id", getSingleNote);
 route.put("/notes/update", updateNote);
-route.delete("/notes/delete", deleteNote);
+route.delete("/notes/delete/:id", deleteNote);
 
 export default route;
