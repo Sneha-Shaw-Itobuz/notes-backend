@@ -12,7 +12,7 @@ export const createNote = async (req, res) => {
     if (createNote) {
       res.status(200).json({
         success: true,
-        message: "Notes created successfully!",
+        message: "Note created successfully!",
         data: null,
       });
     }
