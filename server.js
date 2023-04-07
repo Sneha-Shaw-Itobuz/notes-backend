@@ -7,6 +7,8 @@ const app = express();
 
 const PORT = 8080;
 
+connection();
+
 // parse json request body
 app.use(express.json());
 
@@ -19,4 +21,3 @@ app.listen(PORT, () => {
   console.log(`Listening in ${PORT}`);
 });
 
-connection();
