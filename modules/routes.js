@@ -13,10 +13,10 @@ route.get("/", function (req, res) {
   res.send("Welcome to backend");
 });
 
-route.post("/notes/create", createNote);
-route.get("/notes/get", getNotes);
-route.get("/notes/get-single-note/:id", getSingleNote);
-route.put("/notes/update", updateNote);
-route.delete("/notes/delete/:id", deleteNote);
+route.post("/create", createNote);
+route.get("/get", getNotes);
+route.get("/get-single-note/:id", getSingleNote);
+route.put("/update", updateNote);
+route.delete("/delete/:id", deleteNote);
 
 export default route;

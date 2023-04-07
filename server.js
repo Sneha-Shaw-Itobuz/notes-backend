@@ -15,9 +15,8 @@ app.use(express.json());
 // enable cors
 app.use(cors());
 
-app.use("/", routes);
+app.use("/notes", routes);
 
 app.listen(PORT, () => {
   console.log(`Listening in ${PORT}`);
 });
-
