@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
+import { dbData } from "../config.js";
 
-const url =
-  "mongodb+srv://sneha:1234@cluster0.sxavqzw.mongodb.net/notes?retryWrites=true&w=majority";
+const url = `mongodb+srv://${dbData.username}:${dbData.pass}@cluster0.sxavqzw.mongodb.net/${dbData.dbName}?retryWrites=true&w=majority`;
 
 export async function connection() {
   await mongoose
