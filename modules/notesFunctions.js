@@ -1,10 +1,11 @@
-import notesSchema from "../model/notesSchema.js";
+import notesModel from "../model/notesSchema.js";
+import { HttpError } from "./errorHandler.js";
 
-export const createNote = async (req, res) => {
+export const createNote = async (req, res, next) => {
   try {
     const { title, content } = req.body;
 
-    let createNote = await notesSchema.create({
+    let createNote = await notesModel.create({
       title,
       content,
     });
@@ -17,16 +18,13 @@ export const createNote = async (req, res) => {
       });
     }
   } catch (error) {
-    res.status(400).json({
-      success: false,
-      message: error.message,
-    });
+    next(error);
   }
 };
 
-export const getNotes = async (req, res) => {
+export const getNotes = async (req, res, next) => {
   try {
-    const notes = await notesSchema.find({});
+    const notes = await notesModel.find({});
 
     if (notes) {
       res.status(200).json({
@@ -35,25 +33,18 @@ export const getNotes = async (req, res) => {
         data: notes,
       });
     } else {
-      res.status(404).json({
-        success: false,
-        message: "Notes Not found!",
-        data: null,
-      });
+      next(new HttpError("Notes Not found!", 404, null));
     }
   } catch (error) {
-    res.status(400).json({
-      success: false,
-      message: error.message,
-    });
+    next(error);
   }
 };
 
-export const getSingleNote = async (req, res) => {
+export const getSingleNote = async (req, res, next) => {
   try {
     const { id } = req.params;
 
-    const note = await notesSchema.findById(id);
+    const note = await notesModel.findById(id);
 
     if (note) {
       res.status(200).json({
@@ -62,25 +53,18 @@ export const getSingleNote = async (req, res) => {
         data: note,
       });
     } else {
-      res.status(404).json({
-        success: false,
-        message: "Note Not found!",
-        data: null,
-      });
+      next(new HttpError("Note Not found!", 404, null));
     }
   } catch (error) {
-    res.status(400).json({
-      success: false,
-      message: error.message,
-    });
+    next(error);
   }
 };
 
-export const updateNote = async (req, res) => {
+export const updateNote = async (req, res, next) => {
   try {
     const { id, title, content } = req.body;
 
-    const note = await notesSchema.findById(id);
+    const note = await notesModel.findById(id);
 
     if (note) {
       note.title = title || note.title;
@@ -92,25 +76,18 @@ export const updateNote = async (req, res) => {
         message: "Note Updated successfully!",
       });
     } else {
-      res.status(404).json({
-        success: false,
-        message: "Note Not found!",
-        data: null,
-      });
+      next(new HttpError("Note Not found!", 404, null));
     }
   } catch (error) {
-    res.status(400).json({
-      success: false,
-      message: error.message,
-    });
+    next(error);
   }
 };
 
-export const deleteNote = async (req, res) => {
+export const deleteNote = async (req, res, next) => {
   try {
     const { id } = req.params;
 
-    const deleted = await notesSchema.findByIdAndDelete(id);
+    const deleted = await notesModel.findByIdAndDelete(id);
 
     if (deleted) {
       res.status(200).json({
@@ -119,16 +96,9 @@ export const deleteNote = async (req, res) => {
         data: null,
       });
     } else {
-      res.status(404).json({
-        success: false,
-        message: "Note Not found!",
-        data: null,
-      });
+      next(new HttpError("Note Not found!", 404, null));
     }
   } catch (error) {
-    res.status(400).json({
-      success: false,
-      message: error.message,
-    });
+    next(error);
   }
 };
